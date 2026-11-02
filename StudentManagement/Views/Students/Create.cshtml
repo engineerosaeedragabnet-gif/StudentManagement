@@ -1,0 +1,18 @@
+﻿@model StudentFormViewModel
+
+@{
+    ViewData["Title"] = "طالب جديد";
+}
+
+<h1>طالب جديد</h1>
+
+<form asp-action="Create" method="post">
+    <partial name="_StudentForm" model="Model" />
+
+    <button type="submit" class="btn btn-success">حفظ</button>
+    <a asp-action="Index" class="btn btn-secondary">إلغاء</a>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

@@ -1,0 +1,47 @@
+﻿@model IEnumerable<DepartmentListItemViewModel>
+
+@{
+    ViewData["Title"] = "الأقسام";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h1>🏛️ الأقسام</h1>
+    <a asp-action="Create" class="btn btn-primary">+ قسم جديد</a>
+</div>
+
+@if (!Model.Any())
+{
+    <div class="alert alert-info">لا توجد أقسام بعد.</div>
+}
+else
+{
+    <div class="table-responsive">
+        <table class="table table-hover align-middle">
+            <thead>
+                <tr>
+                    <th>القسم</th>
+                    <th>عدد الطلاب</th>
+                    <th>إجراءات</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var d in Model)
+                {
+                    <tr>
+                        <td>@d.Name</td>
+                        <td>
+                            <!-- لينك يفتح قائمة الطلاب مفلترة بالقسم -->
+                            <a asp-controller="Students" asp-action="Index" asp-route-departmentId="@d.Id">
+                                @d.StudentsCount طالب
+                            </a>
+                        </td>
+                        <td>
+                            <a asp-action="Edit" asp-route-id="@d.Id" class="btn btn-sm btn-warning">تعديل</a>
+                            <a asp-action="Delete" asp-route-id="@d.Id" class="btn btn-sm btn-danger">حذف</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}

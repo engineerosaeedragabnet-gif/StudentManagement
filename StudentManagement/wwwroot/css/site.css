@@ -1,0 +1,386 @@
+/* ==========================================================
+   إدارة الطلاب - site.css
+   الألوان والأحجام متعرّفة كمتغيرات في الأول، عدّل منها فقط
+   ========================================================== */
+
+:root {
+    --app-primary: #0F4C5C;
+    --app-primary-hover: #0B3A47;
+    --app-accent: #E09F3E;
+    --app-nav-bg: #0F4C5C;
+    --app-bg: #F2F5F7;
+    --app-surface: #FFFFFF;
+    --app-ink: #1B2A33;
+    --app-muted: #5B6B75;
+    --app-border: #DAE1E6;
+    --app-radius: 10px;
+    --bs-body-font-family: 'IBM Plex Sans Arabic', 'Segoe UI', Tahoma, sans-serif;
+    --bs-body-bg: var(--app-bg);
+    --bs-body-color: var(--app-ink);
+    --bs-border-color: var(--app-border);
+    --bs-link-color: var(--app-primary);
+    --bs-link-hover-color: var(--app-primary-hover);
+}
+
+[data-bs-theme="dark"] {
+    --app-primary: #23788D;
+    --app-primary-hover: #1C6173;
+    --app-nav-bg: #0C2A33;
+    --app-bg: #11181C;
+    --app-surface: #19232A;
+    --app-ink: #E4EBEE;
+    --app-muted: #9AABB5;
+    --app-border: #2A3841;
+    --bs-link-color: #6FC1D6;
+    --bs-link-hover-color: #9ED8E7;
+}
+
+/* ---------- أساسيات ---------- */
+html {
+    scroll-padding-top: 5rem;
+}
+
+body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    line-height: 1.75;
+    background-color: var(--app-bg);
+    color: var(--app-ink);
+}
+
+h1, h2, h3 {
+    font-weight: 700;
+    line-height: 1.4;
+}
+
+h1 {
+    font-size: 1.6rem;
+}
+
+.app-main {
+    flex: 1 0 auto;
+    padding-top: 2rem;
+    padding-bottom: 3rem;
+    outline: none;
+}
+
+.skip-link {
+    position: absolute;
+    inset-inline-start: 1rem;
+    top: -4rem;
+    z-index: 2000;
+    padding: .5rem 1rem;
+    background: var(--app-accent);
+    color: #1B2A33;
+    border-radius: 0 0 var(--app-radius) var(--app-radius);
+    text-decoration: none;
+    font-weight: 600;
+}
+
+    .skip-link:focus {
+        top: 0;
+    }
+
+:focus-visible {
+    outline: 3px solid var(--app-accent);
+    outline-offset: 2px;
+}
+
+/* ---------- الشريط العلوي ---------- */
+.app-navbar {
+    background-color: var(--app-nav-bg);
+    padding-block: .6rem;
+    border-bottom: 1px solid rgba(255, 255, 255, .08);
+}
+
+.app-brand {
+    display: inline-flex;
+    align-items: center;
+    gap: .6rem;
+    color: #fff;
+    font-weight: 700;
+    font-size: 1.2rem;
+}
+
+    .app-brand:hover,
+    .app-brand:focus {
+        color: #fff;
+    }
+
+.app-brand-mark {
+    display: inline-grid;
+    place-items: center;
+    width: 38px;
+    height: 38px;
+    border-radius: 9px;
+    background: rgba(255, 255, 255, .12);
+    color: var(--app-accent);
+}
+
+/* اللينك النشط: خط كهرماني تحته (العلامة المميزة الوحيدة في التصميم) */
+.app-nav .nav-link {
+    position: relative;
+    color: rgba(255, 255, 255, .78);
+    font-weight: 500;
+    padding: .55rem .9rem;
+}
+
+    .app-nav .nav-link:hover,
+    .app-nav .nav-link:focus {
+        color: #fff;
+    }
+
+    .app-nav .nav-link.active {
+        color: #fff;
+        font-weight: 600;
+    }
+
+        .app-nav .nav-link.active::after {
+            content: "";
+            position: absolute;
+            inset-inline: .9rem;
+            bottom: .1rem;
+            height: 3px;
+            border-radius: 3px;
+            background: var(--app-accent);
+        }
+
+.app-toggler {
+    border-color: rgba(255, 255, 255, .35);
+    --bs-navbar-toggler-icon-bg: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28255,255,255,0.9%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+}
+
+/* البحث السريع */
+.app-search-input {
+    min-width: 240px;
+    border-radius: 999px;
+    border: 1px solid rgba(255, 255, 255, .22);
+    background-color: rgba(255, 255, 255, .1);
+    color: #fff;
+    padding-inline: 1.1rem;
+}
+
+    .app-search-input::placeholder {
+        color: rgba(255, 255, 255, .6);
+    }
+
+    .app-search-input:focus {
+        background-color: rgba(255, 255, 255, .16);
+        border-color: var(--app-accent);
+        color: #fff;
+        box-shadow: none;
+    }
+
+.app-icon-btn {
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    border-radius: 50%;
+    border: 1px solid rgba(255, 255, 255, .22);
+    background: rgba(255, 255, 255, .1);
+    color: #fff;
+    line-height: 1;
+}
+
+    .app-icon-btn:hover,
+    .app-icon-btn:focus-visible {
+        background: rgba(255, 255, 255, .2);
+        color: #fff;
+    }
+
+/* ---------- الإشعارات (Toasts) ---------- */
+.app-toasts {
+    z-index: 1090;
+}
+
+.app-toast {
+    border: 0;
+    color: #fff;
+    border-radius: var(--app-radius);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, .18);
+}
+
+.app-toast-success {
+    background-color: #1E7B5A;
+}
+
+.app-toast-error {
+    background-color: #B3382F;
+}
+
+/* ---------- الأزرار ---------- */
+.btn-primary {
+    --bs-btn-bg: var(--app-primary);
+    --bs-btn-border-color: var(--app-primary);
+    --bs-btn-hover-bg: var(--app-primary-hover);
+    --bs-btn-hover-border-color: var(--app-primary-hover);
+    --bs-btn-active-bg: var(--app-primary-hover);
+    --bs-btn-active-border-color: var(--app-primary-hover);
+    --bs-btn-disabled-bg: var(--app-primary);
+    --bs-btn-disabled-border-color: var(--app-primary);
+}
+
+.btn-outline-primary {
+    --bs-btn-color: var(--app-primary);
+    --bs-btn-border-color: var(--app-primary);
+    --bs-btn-hover-bg: var(--app-primary);
+    --bs-btn-hover-border-color: var(--app-primary);
+    --bs-btn-active-bg: var(--app-primary-hover);
+    --bs-btn-active-border-color: var(--app-primary-hover);
+}
+
+[data-bs-theme="dark"] .btn-outline-primary {
+    --bs-btn-color: #6FC1D6;
+}
+
+.btn {
+    font-weight: 500;
+    border-radius: 8px;
+}
+
+/* ---------- الكروت والجداول ---------- */
+.card {
+    background-color: var(--app-surface);
+    border: 1px solid var(--app-border);
+    border-radius: var(--app-radius);
+    box-shadow: none;
+}
+
+.table-responsive {
+    background-color: var(--app-surface);
+    border: 1px solid var(--app-border);
+    border-radius: var(--app-radius);
+}
+
+.table {
+    --bs-table-bg: transparent;
+    margin-bottom: 0;
+}
+
+    .table > :not(caption) > * > * {
+        padding: .85rem 1rem;
+    }
+
+    .table thead th {
+        font-weight: 600;
+        color: var(--app-muted);
+        border-bottom: 1px solid var(--app-border);
+        background-color: transparent;
+    }
+
+    .table tbody tr:last-child td {
+        border-bottom: 0;
+    }
+
+/* أرقام وإيميلات: تتعرض من الشمال لليمين حتى في صفحة RTL */
+.ltr-text {
+    direction: ltr;
+    unicode-bidi: plaintext;
+    text-align: right;
+}
+
+/* ---------- عناوين الأعمدة القابلة للترتيب ---------- */
+.sort-link {
+    color: inherit;
+    text-decoration: none;
+    white-space: nowrap;
+}
+
+    .sort-link:hover {
+        color: var(--app-primary);
+    }
+
+[data-bs-theme="dark"] .sort-link:hover {
+    color: #6FC1D6;
+}
+
+.sort-arrow {
+    font-size: .7rem;
+    margin-inline-start: .35rem;
+    color: var(--app-accent);
+}
+
+/* ---------- الـ Pagination ---------- */
+.pagination {
+    --bs-pagination-color: var(--app-primary);
+    --bs-pagination-bg: var(--app-surface);
+    --bs-pagination-border-color: var(--app-border);
+    --bs-pagination-hover-color: var(--app-primary-hover);
+    --bs-pagination-active-bg: var(--app-primary);
+    --bs-pagination-active-border-color: var(--app-primary);
+    --bs-pagination-active-color: #fff;
+    --bs-pagination-disabled-bg: var(--app-surface);
+    --bs-pagination-disabled-border-color: var(--app-border);
+}
+
+[data-bs-theme="dark"] .pagination {
+    --bs-pagination-color: #6FC1D6;
+    --bs-pagination-hover-bg: var(--app-border);
+    --bs-pagination-hover-color: #9ED8E7;
+}
+
+/* ---------- الفورم والتحقق ---------- */
+.form-control,
+.form-select {
+    background-color: var(--app-surface);
+    border-color: var(--app-border);
+    border-radius: 8px;
+}
+
+    .form-control:focus,
+    .form-select:focus {
+        border-color: var(--app-primary);
+        box-shadow: 0 0 0 .2rem rgba(15, 76, 92, .18);
+    }
+
+.field-validation-error {
+    display: block;
+    margin-top: .25rem;
+    font-size: .875rem;
+}
+
+.input-validation-error {
+    border-color: #DC3545;
+}
+
+.validation-summary-errors ul {
+    margin-bottom: 0;
+    padding-inline-start: 1.2rem;
+}
+
+/* ---------- الفوتر ---------- */
+.app-footer {
+    flex-shrink: 0;
+    padding-block: 1.1rem;
+    font-size: .9rem;
+    color: var(--app-muted);
+    background-color: var(--app-surface);
+    border-top: 1px solid var(--app-border);
+}
+
+/* ---------- موبايل ---------- */
+@media (max-width: 991.98px) {
+    .app-search-input {
+        min-width: 0;
+        width: 100%;
+    }
+
+    .app-search {
+        width: 100%;
+    }
+
+    .app-nav .nav-link.active::after {
+        inset-inline: .9rem auto;
+        width: 2rem;
+    }
+}
+
+/* احترام إعداد تقليل الحركة */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        scroll-behavior: auto !important;
+        transition: none !important;
+        animation: none !important;
+    }
+}

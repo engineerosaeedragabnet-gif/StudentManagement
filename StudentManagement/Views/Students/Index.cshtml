@@ -1,0 +1,80 @@
+﻿@model StudentIndexViewModel
+
+@{
+    ViewData["Title"] = "الطلاب";
+    var students = Model.Students;
+}
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h1>🎓 الطلاب</h1>
+    <a asp-action="Create" class="btn btn-primary">+ طالب جديد</a>
+</div>
+
+<!-- فورم البحث والفلترة (GET) -->
+<form asp-action="Index" method="get" class="row g-2 mb-3">
+    <!-- نحافظ على الترتيب الحالي عند البحث -->
+    <input type="hidden" name="sortOrder" value="@Model.SortOrder" />
+
+    <div class="col-md-5">
+        <input type="text" name="searchTerm" value="@Model.SearchTerm" class="form-control"
+               placeholder="ابحث بالاسم أو البريد الإلكتروني..." />
+    </div>
+    <div class="col-md-4">
+        <select name="departmentId" asp-items="Model.Departments" class="form-select">
+            <option value="">كل الأقسام</option>
+        </select>
+    </div>
+    <div class="col-md-3 d-flex gap-2">
+        <button type="submit" class="btn btn-outline-primary flex-fill">🔍 بحث</button>
+        <a asp-action="Index" class="btn btn-outline-secondary">مسح</a>
+    </div>
+</form>
+
+@if (!students.Any())
+{
+    <div class="alert alert-info">لا يوجد طلاب مطابقون للبحث.</div>
+}
+else
+{
+    <p class="text-muted mb-2">
+        عرض @students.Count من أصل @students.TotalCount طالب
+        (الصفحة @students.PageIndex من @students.TotalPages)
+    </p>
+
+    <div class="table-responsive">
+        <table class="table table-hover align-middle">
+            <thead>
+                <tr>
+                    <th><a sort-column="name" current-sort="@Model.SortOrder" class="sort-link">الاسم</a></th>
+                    <th><a sort-column="dept" current-sort="@Model.SortOrder" class="sort-link">القسم</a></th>
+                    <th><a sort-column="gpa" current-sort="@Model.SortOrder" class="sort-link">المعدل</a></th>
+                    <th><a sort-column="date" current-sort="@Model.SortOrder" class="sort-link">تاريخ الالتحاق</a></th>
+                    <th>إجراءات</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var s in students)
+                {
+                    <tr>
+                        <td>
+                            <div class="fw-semibold">@s.FullName</div>
+                            <small class="text-muted ltr-text">@s.Email</small>
+                        </td>
+                        <td>@s.DepartmentName</td>
+                        <td>@s.Gpa.ToString("0.00")</td>
+                        <td>@s.EnrollmentDate.ToString("yyyy-MM-dd")</td>
+                        <td>
+                            <a asp-action="Details" asp-route-id="@s.Id" class="btn btn-sm btn-info">عرض</a>
+                            <a asp-action="Edit" asp-route-id="@s.Id" class="btn btn-sm btn-warning">تعديل</a>
+                            <a asp-action="Delete" asp-route-id="@s.Id" class="btn btn-sm btn-danger">حذف</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <div class="mt-4">
+        <pager page-index="@students.PageIndex" total-pages="@students.TotalPages"></pager>
+    </div>
+}

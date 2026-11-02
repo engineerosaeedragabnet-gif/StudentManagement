@@ -1,0 +1,30 @@
+﻿@model DepartmentListItemViewModel
+
+@{
+    ViewData["Title"] = "حذف قسم";
+}
+
+<h1>حذف القسم</h1>
+
+<div class="card border-danger">
+    <div class="card-body">
+        <h4>@Model.Name</h4>
+        <p class="mb-0">عدد الطلاب: @Model.StudentsCount</p>
+    </div>
+</div>
+
+@if (Model.StudentsCount > 0)
+{
+    <div class="alert alert-warning mt-3">
+        لا يمكن حذف هذا القسم لأنه يحتوي على طلاب. انقل الطلاب أو احذفهم أولًا.
+    </div>
+    <a asp-action="Index" class="btn btn-secondary">رجوع</a>
+}
+else
+{
+    <form asp-action="Delete" method="post" class="mt-3">
+        <input type="hidden" name="id" value="@Model.Id" />
+        <button type="submit" class="btn btn-danger">نعم، احذف</button>
+        <a asp-action="Index" class="btn btn-secondary">إلغاء</a>
+    </form>
+}
